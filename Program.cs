@@ -21,7 +21,7 @@ namespace StorageAccountOperations
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
             // Retrieve a reference to a queue.
-            CloudQueue queue = queueClient.GetQueueReference("davidqueue");
+            CloudQueue queue = queueClient.GetQueueReference("queue");
 
             // Create the queue if it doesn't already exist.
             queue.CreateIfNotExists();
@@ -30,5 +30,11 @@ namespace StorageAccountOperations
             CloudQueueMessage message = new CloudQueueMessage("Hello, World");
             queue.AddMessage(message);
         }
+    }
+
+    internal class ActionDescription
+    {
+        public int Id { get; set; }
+        public int Email { get; set; }
     }
 }
