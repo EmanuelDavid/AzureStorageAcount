@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,15 +27,17 @@ namespace StorageAccountOperations
             // Create the queue if it doesn't already exist.
             queue.CreateIfNotExists();
 
+            ActionDescription sendMailTo = new ActionDescription { Id = 3, Email = "da1vid@yahoo.com"};
+
             // Create a message and add it to the queue.
-            CloudQueueMessage message = new CloudQueueMessage("Hello, World");
-            queue.AddMessage(message);
+            CloudQueueMessage jsonMessage = new CloudQueueMessage(JsonConvert.SerializeObject(sendMailTo));
+            queue.AddMessage(jsonMessage);
         }
     }
 
     internal class ActionDescription
     {
         public int Id { get; set; }
-        public int Email { get; set; }
+        public string Email { get; set; }
     }
 }
